@@ -38,6 +38,19 @@
      zoom-us
      google-chrome
      ripgrep
+     firefox
+     discord
+     spotify
+     ulauncher
+     libreoffice
+     drawio
+     go
+     docker
+     man
+     wget
+     fish
+     neofetch
+     htop
   ];
     # # "Hello, world!" when run.
     # pkgs.hello
