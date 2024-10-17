@@ -1,19 +1,9 @@
 -- lsp
 -- Setup nvim-cmp.
 
-local tabnine = require("cmp_tabnine.config")
-
-tabnine:setup({
-	max_lines = 1000,
-	max_num_results = 5,
-	sort = true,
-	run_on_every_keystroke = true,
-	snippet_placeholder = "..",
-})
 
 local source_mapping = {
 	luasnip = "[Snip]",
-	cmp_tabnine = "[TN]",
 	nvim_lsp = "[LSP]",
 	buffer = "[Buff]",
 	path = "[Path]",
@@ -37,22 +27,14 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	}),
 	sources = cmp.config.sources({
-		{ name = "luasnip" },
-		{ name = "cmp_tabnine" },
-		{ name = "nvim_lsp" },
-		{ name = "buffer" },
+    { name = "nvim_lsp" }, { name = "luasnip" }, { name = "buffer" },
 	}),
+  
 	formatting = {
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind.presets.default[vim_item.kind]
 			local menu = source_mapping[entry.source.name]
-			if entry.source.name == "cmp_tabnine" then
-				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-					menu = entry.completion_item.data.detail .. " " .. menu
-				end
-				vim_item.kind = ""
-			end
-			vim_item.menu = menu
+      vim_item.menu = menu
 			return vim_item
 		end,
 	},
@@ -73,10 +55,7 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":lua vim.lsp.buf.implementation()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-q>", ":lua vim.lsp.buf.signature_help()<CR>", opts)
-	--[[ vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', ':lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', ':lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', ':lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts) ]]
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>D", ":lua vim.lsp.buf.type_definition()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>D", ":lua vim.lsp.buf.type_definition()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>rn", ":lua vim.lsp.buf.rename()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ca", ":lua vim.lsp.buf.code_action()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":lua vim.lsp.buf.references()<CR>", opts)
@@ -88,7 +67,6 @@ local formatting = null_ls.builtins.formatting
 
 require("null-ls").setup({
 	sources = {
-		formatting.stylua,
 		formatting.prettier,
 		formatting.gofumpt,
 		formatting.goimports,
@@ -108,6 +86,7 @@ require("null-ls").setup({
 		formatting.clang_format,
 		formatting.shfmt,
 		formatting.fourmolu,
+    formatting.zigfmt,
 		-- formatting.statix,
 	},
 })
@@ -154,6 +133,8 @@ local servers = {
 	"dockerls",
 	"bashls",
 	"sqlls",
+  "zls",
+  "tsp_server",
 }
 
 for _, server in ipairs(servers) do

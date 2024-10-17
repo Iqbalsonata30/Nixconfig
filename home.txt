@@ -21,7 +21,6 @@
   # environment. 
   home.packages = with pkgs; [ 
     bat
-    nodejs
     gdb
     clang
     file
@@ -52,13 +51,11 @@
     libreoffice
     drawio
     go
-    typescript-language-server
     lld
     zls
     zig
     docker
     man
-    typescript
     man-pages
     wget
     neofetch
@@ -197,6 +194,7 @@
           type = "lua";
           config = builtins.readFile config/nvim/keymap.lua;
         }
+
         {
           plugin = dracula-vim;
           type= "lua";
@@ -284,10 +282,6 @@
         config = builtins.readFile config/nvim/lualine.lua;
       }
       {
-        plugin = (pluginGit "numToStr" "Comment.nvim" "master" "h0kPue5Eqd5aeu4VoLH45pF0DmWWo1d8SnLICSQ63zc=");
-        type = "lua";
-      }
-      {
         plugin = toggleterm-nvim;
         type = "lua";
         config = builtins.readFile config/nvim/toggleterm.lua;
@@ -307,9 +301,6 @@
     enable = true;
     userEmail = "iqbalsonata2@gmail.com";
     userName = "iqbalsonata";
-    extraConfig = {
-      pull.rebase = true;
-    };
   };
   programs.git-credential-oauth.enable = true;
   

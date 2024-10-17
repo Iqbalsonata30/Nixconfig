@@ -3,8 +3,6 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<space", "<nop>", { silent = true })
 
--- resize buffer
-vim.keymap.set("n", "<leader>m", ":MaximizerToggle<CR>")
 
 vim.keymap.set("n", "<C-k>", ":resize +2<CR>", { silent = true })
 vim.keymap.set("n", "<C-j>", ":resize -2<CR>", { silent = true })
@@ -21,8 +19,6 @@ vim.keymap.set("n", "<leader>Y", '"+yg_')
 vim.keymap.set({ "v", "n" }, "<leader>p", '"+p')
 vim.keymap.set({ "v", "n" }, "<leader>P", '"+P')
 
--- indent line in tab (becase of copilot :/)
-vim.keymap.set("i", "<C-i>", "  ", { silent = true })
 
 -- splits
 vim.keymap.set("n", "<leader>s", ":split<CR><C-w>j", { silent = true })

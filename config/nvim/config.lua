@@ -4,7 +4,6 @@ vim.o.rnu = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.hidden = true
-vim.o.noerrorbells = true
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
@@ -28,9 +27,11 @@ vim.o.pumblend = 15
 vim.o.mouse = "a"
 vim.o.winbar = "%=%{expand('%:~:.')}"
 vim.cmd("syntax on")
+vim.g.zig_fmt_autosave=0
 
 vim.api.nvim_create_user_command("BufOnly", function()
 	pcall(function()
 		vim.cmd("%bd|e#|bd#")
 	end)
 end, { desc = "Close all buffer except this buffer" })
+
